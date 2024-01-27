@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoade', function() {
+document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('form-sorteador').addEventListener('submit', function(evento) {
         evento.preventDefault();
         let numeroMaximo = document.getElementById('numero-maximo').value;
@@ -8,6 +8,6 @@ document.addEventListener('DOMContentLoade', function() {
         numeroAleatorio = Math.floor(numeroAleatorio + 1);
 
         document.getElementById('resultado-valor').innerText = numeroAleatorio;
-        document.getElementById('.resultado').style.display = 'block';
+        document.querySelector('.resultado').style.display = 'block';
     })
 })

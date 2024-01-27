@@ -32,11 +32,11 @@ module.exports = function(grunt) {
                     patterns: [
                         {
                             match: 'ENDERECO_DO_CSS', //colocar essa array no html
-                            replacement: './styles/style.css'
+                            replacement: '/styles/style.css'
                         },
                         {
                             match: 'ENDERECO_DO_JS',
-                            replacement: './src/scripts/script.js'
+                            replacement: '/src/scripts/script.js'
                         }
                     ]
                 },
@@ -54,7 +54,11 @@ module.exports = function(grunt) {
                     patterns: [
                         {
                             match: 'ENDERECO_DO_CSS', //colocar essa array no html
-                            replacement: './styles/style.min.css'
+                            replacement: '/dist/styles/style.min.css'
+                        },
+                        {
+                            match: 'ENDERECO_DO_JS',
+                            replacement: '/src/scripts/script.min.js'
                         }
                     ]
                 },
@@ -80,7 +84,14 @@ module.exports = function(grunt) {
                 }
             }
         },
-        clean: ['prebuild']
+        clean: ['prebuild'],
+        uglify: {
+            target: {
+                files: {
+                    'dist/scripts/script.min.js': './src/scripts/script.js'
+                } 
+            }
+        }
     })
 
     //carregando os plugins
@@ -89,7 +100,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-replace');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
 
     grunt.registerTask('default', ['watch']); //trocar ['less:development'] por ['watch']
-    grunt.registerTask('build', ['less:production', 'htmlmin:dist', 'replace:dist', 'clean']); //configuração para rodar somente no ambiente de produção
+    grunt.registerTask('build', ['less:production', 'htmlmin:dist', 'replace:dist', 'clean', 'uglify']); //configuração para rodar somente no ambiente de produção
 }
